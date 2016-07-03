@@ -1,0 +1,278 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <title>表单</title>
+
+  <!-- Set render engine for 360 browser -->
+  <meta name="renderer" content="webkit">
+
+  <!-- No Baidu Siteapp-->
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+  <link rel="icon" type="image/png" href="assets/i/favicon.png">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" href="assets/i/app-icon72x72@2x.png">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+  <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+
+  <!-- Tile icon for Win8 (144x144 + tile color) -->
+  <meta name="msapplication-TileImage" content="assets/i/app-icon72x72@2x.png">
+  <meta name="msapplication-TileColor" content="#0e90d2">
+
+  <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+  <!--
+  <link rel="canonical" href="http://www.example.com/">
+  -->
+
+  <link rel="stylesheet" href="assets/css/amazeui.min.css">
+  <link rel="stylesheet" href="assets/css/app.css">
+  <script src="assets/js/plupload.full.min.js"></script>
+  <script src="assets/js/qiniu.js"></script>
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a
+  href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+
+<form class="am-form">
+  <fieldset>
+    <legend>表单标题</legend>
+
+    <div class="am-form-group">
+      <label for="doc-ipt-file-1">上传图片</label>
+      <input type="file" id="doc-ipt-file-1">
+      <p class="am-form-help">请选择要上传的图片...</p>
+    </div>
+
+    <img id="photo">
+
+<!--     <div class="am-form-group am-form-file">
+      <div>
+        <button type="button" class="am-btn am-btn-default am-btn-sm" id="photo_1_btn">
+          <i class="am-icon-cloud-upload"></i>上传图片1</button>
+      </div>
+      <input type="file" class="photo_file" id="photo_1" accept="image/png,image/gif,image/jpeg">
+    </div>
+ -->
+    <div id="container"><button type="button" class="am-btn am-btn-default am-btn-sm" id="photo_1"><i class="am-icon-cloud-upload"></i>上传图片1</button></div>
+
+
+    <div class="am-form-group am-form-file">
+      <div>
+        <button type="button" class="am-btn am-btn-default am-btn-sm"id="photo_2_btn">
+          <i class="am-icon-cloud-upload"></i>上传图片2</button>
+      </div>
+      <input type="file" class="photo_file" id="photo_2" accept="image/png,image/gif,image/jpeg">
+    </div>
+
+    <div class="am-form-group am-form-file">
+      <div>
+        <button type="button" class="am-btn am-btn-default am-btn-sm"id="photo_3_btn">
+          <i class="am-icon-cloud-upload"></i>上传图片3</button>
+      </div>
+      <input type="file" class="photo_file" id="photo_3" accept="image/png,image/gif,image/jpeg">
+    </div>
+
+    <div class="am-form-group am-form-file">
+      <div>
+        <button type="button" class="am-btn am-btn-default am-btn-sm"id="video_1_btn">
+          <i class="am-icon-cloud-upload"></i>上传视频</button>
+      </div>
+      <input type="file" class="video_file" id="video_1" accept="video/3gpp,video/mpeg,video/mp4,video/x-ms-asf,video/x-msvideo,video/x-sgi-movie,video/quicktime">
+    </div>
+
+    <div class="am-form-group">
+      <label for="doc-select-1">下拉多选框</label>
+      <select id="doc-select-1">
+        <option value="option1">选项一...</option>
+        <option value="option2">选项二.....</option>
+        <option value="option3">选项三........</option>
+      </select>
+      <span class="am-form-caret"></span>
+    </div>
+
+    <p><button type="submit" class="am-btn am-btn-default">提交</button></p>
+  </fieldset>
+</form>
+
+<footer class="am-margin-top">
+  <hr/>
+  <p class="am-text-center">
+    <small>by The Bill.</small>
+  </p>
+</footer>
+
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="assets/js/amazeui.min.js"></script>
+
+<script>
+
+var pullfiles = function() {
+    var files = this.files;
+    var file = files[0];
+    var file_format_ok = false;
+    console.log(file.name);
+    // 检查格式
+    if (this.className == "video_file") {
+      var valid_video_types = ['mp2', 'mpa', 'mpe', 'mpeg', 'mpg', 'mpv2', 'mov', 'qt', 'lsf', 'lsx', 'asf', 'asr', 'asx', 'avi', 'movie', 'avi', 'mp4', 'rm', 'rmvb'];
+      for(var i = 0; i < valid_video_types.length; i++) {
+        if (file.name.endsWith(valid_video_types[i])) {
+          file_format_ok = true;
+          break;
+        }
+      }
+    } else {
+      var valid_image_types = ['bmp', 'gif', 'ico', 'jpe', 'jpeg', 'jpg', 'svg', 'tif', 'png'];
+      for(var i = 0; i < valid_image_types.length; i++) {
+        if (file.name.endsWith(valid_image_types[i])) {
+          file_format_ok = true;
+          break;
+        }
+      }
+    }
+    if (!file_format_ok) {
+      alert("文件格式不正确 无法提交");
+      return;
+    }
+    btn_id = this.id + "_btn";
+    document.getElementById(btn_id).innerText = "已选择文件: " + file.name;
+        // var reader = new FileReader();
+        // reader.onload = function (event) {
+        //   var src = event.target.result;
+        //   if (!src.startsWith('data:image')) {
+        //     src = 'data:image/jpg;base64,' + src;
+        //   }
+        //   var photo = document.querySelector("#photo");
+        //   photo.src = src;
+        // };
+        // reader.readAsDataURL(file);
+}
+
+// 设置change事件处理函数
+var photo_file_input = document.getElementsByClassName("photo_file");
+for (var i=0; i < photo_file_input.length; i++) {
+  photo_file_input[i].onchange = pullfiles;
+}
+
+document.getElementsByClassName("video_file")[0].onchange = pullfiles;
+
+var get_image_by_order_num = function(order_num) {
+  return document.getElementsByClassName("photo_file")[order_num-1].files[0];
+};
+
+var uploader = Qiniu.uploader({
+    runtimes: 'html5,flash,html4',      // 上传模式,依次退化
+    browse_button: 'photo_1',         // 上传选择的点选按钮，**必需**
+    // 在初始化时，uptoken, uptoken_url, uptoken_func 三个参数中必须有一个被设置
+    // 切如果提供了多个，其优先级为 uptoken > uptoken_url > uptoken_func
+    // 其中 uptoken 是直接提供上传凭证，uptoken_url 是提供了获取上传凭证的地址，如果需要定制获取 uptoken 的过程则可以设置 uptoken_func
+    // uptoken : '<Your upload token>', // uptoken 是上传凭证，由其他程序生成
+    uptoken_url: 'http://192.168.253.3:5000/api/apply_upload_token',         // Ajax 请求 uptoken 的 Url，**强烈建议设置**（服务端提供）
+    // uptoken_func: function(file){    // 在需要获取 uptoken 时，该方法会被调用
+    //    // do something
+    //    console.log("uptoken_func"+file);
+    //    uptoken = "";
+    //    return uptoken;
+    // },
+    get_new_uptoken: false,             // 设置上传文件的时候是否每次都重新获取新的 uptoken
+    // downtoken_url: 'http://localhost:5000/api/apply_upload_token',
+    // Ajax请求downToken的Url，私有空间时使用,JS-SDK 将向该地址POST文件的key和domain,服务端返回的JSON必须包含`url`字段，`url`值为该文件的下载地址
+    unique_names: true,              // 默认 false，key 为文件名。若开启该选项，JS-SDK 会为每个文件自动生成key（文件名）
+    // save_key: true,                  // 默认 false。若在服务端生成 uptoken 的上传策略中指定了 `sava_key`，则开启，SDK在前端将不对key进行任何处理
+    domain: 'gymcollege',     // bucket 域名，下载资源时用到，**必需**
+    container: 'container',             // 上传区域 DOM ID，默认是 browser_button 的父元素，
+    max_file_size: '100mb',             // 最大文件体积限制
+    flash_swf_url: 'assets/js/Moxie.swf',  //引入 flash,相对路径
+    max_retries: 3,                     // 上传失败最大重试次数
+    dragdrop: false,                     // 开启可拖曳上传
+    drop_element: 'container',          // 拖曳上传区域元素的 ID，拖曳文件或文件夹后可触发上传
+    chunk_size: '4mb',                  // 分块上传时，每块的体积
+    auto_start: true,                   // 选择文件后自动上传，若关闭需要自己绑定事件触发上传,
+    //x_vars : {
+    //    自定义变量，参考http://developer.qiniu.com/docs/v6/api/overview/up/response/vars.html
+    //    'time' : function(up,file) {
+    //        var time = (new Date()).getTime();
+              // do something with 'time'
+    //        return time;
+    //    },
+    //    'size' : function(up,file) {
+    //        var size = file.size;
+              // do something with 'size'
+    //        return size;
+    //    }
+    //},
+    init: {
+        'FilesAdded': function(up, files) {
+            console.log("FilesAdded");
+            console.log(files);
+            plupload.each(files, function(file) {
+                // 文件添加进队列后,处理相关的事情
+            });
+        },
+        'BeforeUpload': function(up, file) {
+          console.log("BeforeUpload");
+          console.log(up);
+          console.log(file);
+               // 每个文件上传前,处理相关的事情
+        },
+        'UploadProgress': function(up, file) {
+               // 每个文件上传时,处理相关的事情
+        },
+        'FileUploaded': function(up, file, info) {
+            console.log('FileUploaded'+info);
+               // 每个文件上传成功后,处理相关的事情
+               // 其中 info 是文件上传成功后，服务端返回的json，形式如
+               // {
+               //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+               //    "key": "gogopher.jpg"
+               //  }
+               // 参考http://developer.qiniu.com/docs/v6/api/overview/up/response/simple-response.html
+
+               // var domain = up.getOption('domain');
+               // var res = parseJSON(info);
+               // var sourceLink = domain + res.key; 获取上传成功后的文件的Url
+        },
+        'Error': function(up, err, errTip) {
+               //上传出错时,处理相关的事情
+        },
+        'UploadComplete': function() {
+               //队列文件处理完毕后,处理相关的事情
+        },
+        'Key': function(up, file) {
+            // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+            // 该配置必须要在 unique_names: false , save_key: false 时才生效
+
+            var key = "";
+            // do something with key here
+            return key
+        }
+    }
+});
+</script>
+
+</body>
+</html>
