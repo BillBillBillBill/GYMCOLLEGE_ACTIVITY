@@ -50,13 +50,12 @@ class UserError():
         'msg': 'Checkcode Error'
     }
 
-def register(photos, videos):
+def register(name, sex, job, phone, email, location, declaration, photos, videos):
     try:
-        enc_password = get_enc_password(password)
         # 存入数据库
-        newUser = User()
+        newUser = User(name, sex, job, phone, email, location, declaration)
         db.session.add(newUser)
-        db.session.flush()
+        db.session.commit()
         for photo in photos:
             photo = Photo(newUser.id, photo.hash, photo.key)
             db.session.add(photo)
@@ -80,9 +79,16 @@ def user_register():
     try:
         if not request.json:
             return jsonError(GlobalError.INVALID_ARGUMENTS), 400
+        name = request.json.get('name', '')
+        sex = request.json.get('sex', '')
+        job = request.json.get('job', '')
+        phone = request.json.get('phone', '')
+        email = request.json.get('email', '')
+        location = request.json.get('location', '')
+        declaration = request.json.get('declaration', '')
         videos = request.json.get('videos', [])
         photos = request.json.get('photos', [])
-        ret = register(photos, videos)
+        ret = register(name, sex, job, phone, email, location, declaration, photos, videos)
         if ret:
             return jsonSuccess(ret), 201
         else:
