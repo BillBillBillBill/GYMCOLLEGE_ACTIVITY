@@ -71,9 +71,13 @@
     </div>
  -->
     <button type="button" class="am-btn am-btn-default am-btn-sm" id="photo_1"><i class="am-icon-cloud-upload"></i>上传图片1</button>
+    <button type="button" class="am-btn am-btn-default am-btn-sm" id="photo_2"><i class="am-icon-cloud-upload"></i>上传图片2</button>
+    <button type="button" class="am-btn am-btn-default am-btn-sm" id="photo_3"><i class="am-icon-cloud-upload"></i>上传图片3</button>
+    <button type="button" class="am-btn am-btn-default am-btn-sm" id="photo_4"><i class="am-icon-cloud-upload"></i>上传图片4</button>
+    <button type="button" class="am-btn am-btn-default am-btn-sm" id="video_1"><i class="am-icon-cloud-upload"></i>上传视频</button>
 
 
-    <div class="am-form-group am-form-file">
+<!--     <div class="am-form-group am-form-file">
       <div>
         <button type="button" class="am-btn am-btn-default am-btn-sm"id="photo_2_btn">
           <i class="am-icon-cloud-upload"></i>上传图片2</button>
@@ -95,7 +99,7 @@
           <i class="am-icon-cloud-upload"></i>上传视频</button>
       </div>
       <input type="file" class="video_file" id="video_1" accept="video/3gpp,video/mpeg,video/mp4,video/x-ms-asf,video/x-msvideo,video/x-sgi-movie,video/quicktime">
-    </div>
+    </div> -->
 
     <div class="am-form-group">
       <label for="doc-select-1">下拉多选框</label>
@@ -179,7 +183,7 @@ for (var i=0; i < photo_file_input.length; i++) {
   photo_file_input[i].onchange = pullfiles;
 }
 
-document.getElementsByClassName("video_file")[0].onchange = pullfiles;
+// document.getElementsByClassName("video_file")[0].onchange = pullfiles;
 
 var get_image_by_order_num = function(order_num) {
   return document.getElementsByClassName("photo_file")[order_num-1].files[0];
@@ -207,7 +211,7 @@ var get_config = function(button_id) {
     // save_key: true,                  // 默认 false。若在服务端生成 uptoken 的上传策略中指定了 `sava_key`，则开启，SDK在前端将不对key进行任何处理
     domain: 'gymcollege',     // bucket 域名，下载资源时用到，**必需**
     // scontainer: 'container',             // 上传区域 DOM ID，默认是 browser_button 的父元素，
-    max_file_size: '100mb',             // 最大文件体积限制
+    max_file_size: '50mb',             // 最大文件体积限制
     flash_swf_url: 'assets/js/Moxie.swf',  //引入 flash,相对路径
     max_retries: 3,                     // 上传失败最大重试次数
     dragdrop: false,                     // 开启可拖曳上传
@@ -255,11 +259,13 @@ var get_config = function(button_id) {
                // 参考http://developer.qiniu.com/docs/v6/api/overview/up/response/simple-response.html
 
                // var domain = up.getOption('domain');
-               // var res = parseJSON(info);
+            var res = JSON.parse(info);
+            document.getElementById(button_id).upload_result = res;
                // var sourceLink = domain + res.key; 获取上传成功后的文件的Url
         },
         'Error': function(up, err, errTip) {
                //上传出错时,处理相关的事情
+          alert("上传失败 请重试");
         },
         'UploadComplete': function() {
                //队列文件处理完毕后,处理相关的事情
@@ -267,7 +273,6 @@ var get_config = function(button_id) {
         'Key': function(up, file) {
             // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
             // 该配置必须要在 unique_names: false , save_key: false 时才生效
-
             var key = "";
             // do something with key here
             return key
@@ -276,30 +281,90 @@ var get_config = function(button_id) {
 };
 };
 
-var uploader = Qiniu.uploader(get_config("photo_1"));
+
 
 function submit_infor() {
       var cb = function(ret) {
         console.log(ret);
         //var ret_data = JSON.parse(ret);
       };
-      var data = {
-        'name': 'name',
-        'sex': 'sex',
-        'job': 'job',
-        'phone': 'phone',
-        'email': 'email',
-        'location': 'location',
-        'declaration': 'declaration',
-        'videos': [],
-        'photos': []
-      };
+      var data = get_form_data();
       sendajax('POST', 'http://0.0.0.0:5000/api/register', JSON.stringify(data), cb);
 }
 
 document.getElementById("submit").onclick = function() {
   submit_infor();
 };
+
+var form_name = {
+  "a": "name",
+  "b": "sex",
+  "c": "job",
+  "d": "phone",
+  "e": "email",
+  "f": "location",
+  "g": "declaration",
+};
+
+var get_form_data = function() {
+  var data = {};
+  for(var k in form_name) {
+    var v = document.getElementsByName(k)[0].value;
+    if (!v) {
+      alert("信息不完整 请补充后提交");
+      return;
+    } else {
+      data[form_name[k]] = v;
+    }
+  }
+  data["videos"] = get_video_upload_result();
+  data["photos"] = get_image_upload_result();
+  if (data["videos"].length != 1 || data["photos"].length != 4) {
+    alert("信息不完整 请补充后提交");
+    return;
+  }
+  return data;
+};
+
+var bind_upload_image_btn = function() {
+  var photo_btn_ids = ["photo_1", "photo_2", "photo_3", "photo_4"];
+  for(var i=0; i < photo_btn_ids.length; i++) {
+    Qiniu.uploader(get_config(photo_btn_ids[i]));
+  }
+};
+
+bind_upload_image_btn();
+
+var get_image_upload_result = function() {
+  var photo_btn_ids = ["photo_1", "photo_2", "photo_3", "photo_4"];
+  var upload_results = [];
+  for(var i=0; i < photo_btn_ids.length; i++) {
+    var upload_result = document.getElementById(photo_btn_ids[i]).upload_result;
+    if (upload_result) {
+      upload_results.push(upload_result);
+    }
+  }
+  return upload_results;
+};
+
+var get_video_upload_result = function() {
+  var upload_result = document.getElementById("video_1").upload_result;
+  if (upload_result) {
+    return [upload_result];
+  } else {
+    return [];
+  }
+};
+
+var bind_upload_video_btn = function() {
+
+};
+
+var bind_submmit_btn = function() {
+
+};
+
+
 </script>
 
 </body>

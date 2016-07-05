@@ -97,3 +97,13 @@ def user_register():
         print e
         db.session.rollback()
         return jsonError(GlobalError.UNDEFINED_ERROR), 403
+
+
+@api.route('/register', methods=["OPTIONS"])
+def user_register_options():
+    a = jsonify()
+    a.headers["Access-Control-Allow-Origin"] = "*"
+    a.headers["Access-Control-Allow-Headers"] = "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type"
+    a.headers["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+    a.headers["Access-Control-Max-Age"] = 1728000
+    return a
