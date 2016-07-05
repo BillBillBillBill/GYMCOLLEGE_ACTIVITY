@@ -4,3 +4,6 @@ flask
 Flask-Redis
 Flask-SQLAlchemy
 supervisor
+qiniu
+gevent
+pymysql

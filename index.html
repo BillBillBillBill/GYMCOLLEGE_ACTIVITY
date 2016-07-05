@@ -281,7 +281,9 @@ var get_config = function(button_id) {
 };
 };
 
-
+var byName = function(name) {
+  return document.getElementsByName(name)[0];
+};
 
 function submit_infor() {
       var cb = function(ret) {
@@ -291,10 +293,6 @@ function submit_infor() {
       var data = get_form_data();
       sendajax('POST', 'http://0.0.0.0:5000/api/register', JSON.stringify(data), cb);
 }
-
-document.getElementById("submit").onclick = function() {
-  submit_infor();
-};
 
 var form_name = {
   "a": "name",
@@ -309,7 +307,7 @@ var form_name = {
 var get_form_data = function() {
   var data = {};
   for(var k in form_name) {
-    var v = document.getElementsByName(k)[0].value;
+    var v = byName(k).value;
     if (!v) {
       alert("信息不完整 请补充后提交");
       return;
@@ -333,8 +331,6 @@ var bind_upload_image_btn = function() {
   }
 };
 
-bind_upload_image_btn();
-
 var get_image_upload_result = function() {
   var photo_btn_ids = ["photo_1", "photo_2", "photo_3", "photo_4"];
   var upload_results = [];
@@ -357,12 +353,18 @@ var get_video_upload_result = function() {
 };
 
 var bind_upload_video_btn = function() {
-
+  Qiniu.uploader(get_config("video_1"));
 };
 
 var bind_submmit_btn = function() {
-
+  alert("提交！");
+  document.getElementById("submit").onclick = function() {
+    submit_infor();
+  };
 };
+
+bind_upload_image_btn();
+bind_upload_video_btn();
 
 
 </script>

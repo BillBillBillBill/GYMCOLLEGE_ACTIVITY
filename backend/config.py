@@ -11,7 +11,7 @@ NONDEBUG_IP = '0.0.0.0'
 NONDEBUG_PORT = 5000
 
 DB_USERNAME = 'root'   # 数据库用户名
-DB_PASSWORD = '000ooo'       # 数据库密码
+DB_PASSWORD = ''       # 数据库密码
 DB_PORT = 3306         # 数据库端口
 DB_NAME = 'wishtalk'         # 数据库名称
 
