@@ -27,16 +27,16 @@ class User(db.Model):
 
     def to_dict(self):
         ret = OrderedDict()
-        ret['id'] = self.id
-        ret['姓名'] = self.name
-        ret['性别'] = self.sex
-        ret['职业'] = self.job
-        ret['联系电话'] = self.phone
-        ret['邮箱'] = self.email
-        ret['所在地区'] = self.location
-        ret['参赛宣言'] = self.declaration
-        ret['照片'] = [photo.to_dict() for photo in self.photos] if self.photos else []
-        ret['视频'] = [video.to_dict() for video in self.videos] if self.videos else []
+        ret[u'id'] = self.id
+        ret[u'姓名'] = self.name
+        ret[u'性别'] = self.sex
+        ret[u'职业'] = self.job
+        ret[u'联系电话'] = self.phone
+        ret[u'邮箱'] = self.email
+        ret[u'所在地区'] = self.location
+        ret[u'参赛宣言'] = self.declaration
+        ret[u'照片'] = [photo.to_dict() for photo in self.photos] if self.photos else []
+        ret[u'视频'] = [video.to_dict() for video in self.videos] if self.videos else []
         return ret
 
     def to_eng_dict(self):
