@@ -57,11 +57,11 @@ def register(name, sex, job, phone, email, location, declaration, photos, videos
         db.session.add(newUser)
         db.session.commit()
         for photo in photos:
-            photo = Photo(newUser.id, photo.hash, photo.key)
+            photo = Photo(newUser.id, photo['hash'], photo['key'])
             db.session.add(photo)
             db.session.commit()
         for video in videos:
-            video = Video(newUser.id, video.hash, video.key)
+            video = Video(newUser.id, video['hash'], video['key'])
             db.session.add(video)
             db.session.commit()
         return {"register_id": newUser.id}
