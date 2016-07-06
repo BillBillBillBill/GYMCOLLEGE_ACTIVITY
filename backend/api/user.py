@@ -88,6 +88,8 @@ def user_register():
         declaration = request.json.get('declaration', '')
         videos = request.json.get('videos', [])
         photos = request.json.get('photos', [])
+        print photos
+        print videos
         ret = register(name, sex, job, phone, email, location, declaration, photos, videos)
         if ret:
             return jsonSuccess(ret), 201
