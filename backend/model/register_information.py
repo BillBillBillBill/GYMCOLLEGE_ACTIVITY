@@ -35,6 +35,7 @@ class User(db.Model):
         ret[u'邮箱'] = self.email
         ret[u'所在地区'] = self.location
         ret[u'参赛宣言'] = self.declaration
+        ret[u'报名时间'] = self.create_time
         ret[u'照片'] = [photo.to_dict() for photo in self.photos] if self.photos else []
         ret[u'视频'] = [video.to_dict() for video in self.videos] if self.videos else []
         return ret
