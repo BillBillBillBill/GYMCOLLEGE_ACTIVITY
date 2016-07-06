@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from server import db
 from datetime import datetime
+from collections import OrderedDict
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -24,6 +26,20 @@ class User(db.Model):
         self.declaration = declaration
 
     def to_dict(self):
+        ret = OrderedDict()
+        ret['id'] = self.id
+        ret['姓名'] = self.name
+        ret['性别'] = self.sex
+        ret['职业'] = self.job
+        ret['联系电话'] = self.phone
+        ret['邮箱'] = self.email
+        ret['所在地区'] = self.location
+        ret['参赛宣言'] = self.declaration
+        ret['照片'] = [photo.to_dict() for photo in self.photos] if self.photos else []
+        ret['视频'] = [video.to_dict() for video in self.videos] if self.videos else []
+        return ret
+
+    def to_eng_dict(self):
         return {
             'id': self.id,
             'name': self.name,

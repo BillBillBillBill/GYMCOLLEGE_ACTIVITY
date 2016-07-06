@@ -124,7 +124,6 @@ def render_tables(table_name=None):
     enable_create_btn_table_list = [
     ]
     enable_show_img_btn_table_list = [
-        'register_information',
     ]
 
     btn_control['update_btn'] = True if table_name in enable_update_btn_table_list else False
