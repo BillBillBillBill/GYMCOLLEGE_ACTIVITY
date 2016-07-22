@@ -261,7 +261,12 @@
             console.log(ret);
             var ret_data = JSON.parse(ret);
             if (ret_data.stat == 1) {
-                alert("提交成功");
+                hide_all_in6();
+                show_img(submit_success_bg);
+                byId(share_friend).hidden = "";
+                byId(share_moment).hidden = "";
+                byId(share_qq).hidden = "";
+                byId(share_weibo).hidden = "";
             } else {
                 alert("提交失败 请重试");
             }
@@ -587,12 +592,6 @@
                     var r = confirm("确定提交吗?");
                     if (r == true) {
                         submit_infor();
-                        hide_all_in6();
-                        show_img(submit_success_bg);
-                        byId(share_friend).hidden = "";
-                        byId(share_moment).hidden = "";
-                        byId(share_qq).hidden = "";
-                        byId(share_weibo).hidden = "";
                     }
                 };
 
@@ -693,6 +692,6 @@
           sendajax('POST', 'http://marserv.cn/api/jssdk_sign', upload_data, cb);
     }
     check_subscribe();
-    sign_jssdk();
+    setTimeout(sign_jssdk, 6000);
 </script>
 </body></html>
