@@ -80,7 +80,7 @@ class Sign:
                 redisClient.set(code, ret.get(u"openid"))
                 return {"openid": ret.get(u"openid")}
             else:
-                return try_get_code_from_redis
+                return {"openid": try_get_code_from_redis}
         except:
             return {}
 

@@ -116,8 +116,8 @@ def user_register_options():
 def subscribe_or_not():
     code = request.json.get('code', '')
     openid = (sign1.getUserOpenId(code)).get("openid")
-    print code
-    print openid
+    print "code:", code
+    print "openid:", openid
     if not openid:
         return jsonSuccess(), 200
     else:
