@@ -10,7 +10,7 @@ from api import api, ERROR_USER, GlobalError
 from model.register_information import User, Photo, Video
 from server import db
 from util.jsonResponse import jsonSuccess, jsonError
-from util.weixin_sign import sign1
+from util.weixin_sign import sign1, Sign
 
 
 class UserError():
@@ -124,3 +124,15 @@ def subscribe_or_not():
         s = sign1.check_subscribe(openid)
         print s
         return jsonSuccess(s), 200
+
+
+@api.route('/jssdk_sign', methods=["POST"])
+def jssdk_sign():
+    url = request.json.get('url', '')
+    if not url:
+        return jsonSuccess(), 200
+    else:
+        s = Sign('wx318977fdaad976c1', 'cd70f0c648cc13c82aeba641e9a751fa', url)
+        sign = s.sign()
+        print sign
+        return jsonSuccess(sign), 200

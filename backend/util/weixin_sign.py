@@ -5,7 +5,9 @@ import string
 import hashlib
 import json
 import requests
-from server import redisClient
+import redis
+
+r = redis.Redis()
 
 
 class Sign:
@@ -33,31 +35,21 @@ class Sign:
         return self.ret
 
     def getJsApiTicket(self):
-        data = json.loads(open('jsapi_ticket.json').read())
-        jsapi_ticket = data['jsapi_ticket']
-        if data['expire_time'] < time.time():
+        jsapi_ticket = r.get("jsapi_ticket")
+        if not jsapi_ticket:
             url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=%s" % (self.getAccessToken())
             response = requests.get(url)
             jsapi_ticket = json.loads(response.text)['ticket']
-            data['jsapi_ticket'] = jsapi_ticket
-            data['expire_time'] = int(time.time()) + 7000
-            fopen = open('jsapi_ticket.json', 'w')
-            fopen.write(json.dumps(data))
-            fopen.close()
+            r.set("jsapi_ticket", jsapi_ticket, 7000)
         return jsapi_ticket
 
     def getAccessToken(self):
-        data = json.loads(open('access_token.json').read())
-        access_token = data['access_token']
-        if data['expire_time'] < time.time():
+        access_token = r.get("access_token")
+        if not access_token:
             url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s" % (self.appId, self.appSecret)
             response = requests.get(url)
             access_token = json.loads(response.text)['access_token']
-            data['access_token'] = access_token
-            data['expire_time'] = int(time.time()) + 7000
-            fopen = open('access_token.json', 'w')
-            fopen.write(json.dumps(data))
-            fopen.close()
+            r.set("access_token", access_token, 7000)
         return access_token
 
     def check_subscribe(self, oid):
@@ -65,6 +57,7 @@ class Sign:
             url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=%s&openid=%s&lang=zh_CN" % (self.getAccessToken(), oid)
             response = requests.get(url)
             ret = json.loads(response.text)
+            print "subscribe:", ret
             return {"subscribe": ret.get(u"subscribe"), "openid": ret.get(u"openid")}
         except Exception, e:
             print "wrong:", e
@@ -96,6 +89,6 @@ sign1 = Sign(appId, appSecret, 'http://marserv.cn/register/')
 #print sign2.getAccessToken()
 #print sign1
 #print sign1.getUserOpenId("011psWFd1L2E5o0foEHd18dUFd1psWF6")
-#print sign1.check_subscribe("oAFIAj-7ru1SSh_TSih0Zv88kEOM")
+print sign1.check_subscribe("oAFIAj_Wzyzzsnai1wNMXrHo0PLI")
 #sign2.check_subscribe("oAFIAj-7ru1SSh_TSih0Zv88kEOM")
 #sign2.getUserOpenId("011cmsqM1smJe01szGrM1D9oqM1cmsqy")
