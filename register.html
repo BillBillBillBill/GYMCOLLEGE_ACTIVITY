@@ -296,10 +296,10 @@
       }
       data["videos"] = get_video_upload_result();
       data["photos"] = get_image_upload_result();
-      // if (data["videos"].length != 1 || data["photos"].length < 3) {
-      //   alert("信息不完整 请补充后提交");
-      //   return;
-      // }
+      if (data["videos"].length != 1 || data["photos"].length < 3) {
+        alert("信息不完整 请补充后提交");
+        return;
+      }
       data["register_type"] = register_type;
       data["openid"] = open_id;
       return data;
