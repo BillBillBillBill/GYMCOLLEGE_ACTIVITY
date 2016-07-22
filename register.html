@@ -599,7 +599,7 @@
                 Qiniu.uploader(get_config(get_by_father(upload_video_btn), "video"));
 
                 byId(share_friend).onclick = function() {
-                    alert("share_friend!");
+                    //alert("share_friend!");
                     wx.ready(function(){wx.onMenuShareAppMessage({
                         title: share_title, // 分享标题
                         desc: '', // 分享描述
@@ -618,7 +618,7 @@
 
                 };
                 byId(share_moment).onclick = function() {
-                    alert("share_moment!");
+                    //alert("share_moment!");
                     wx.ready(function(){wx.onMenuShareTimeline({
                         title: share_title, // 分享标题
                         link: share_link, // 分享链接
@@ -634,7 +634,7 @@
 
                 };
                 byId(share_qq).onclick = function() {
-                    alert("share_qq!");
+                    //alert("share_qq!");
                     wx.ready(function(){wx.onMenuShareQQ({
                         title: share_title, // 分享标题
                         desc: '', // 分享描述
@@ -651,7 +651,7 @@
 
                 };
                 byId(share_weibo).onclick = function() {
-                    alert("share_weibo!");
+                    //alert("share_weibo!");
                     wx.ready(function(){wx.onMenuShareWeibo({
                         title: share_title, // 分享标题
                         desc: '', // 分享描述
