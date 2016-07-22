@@ -242,14 +242,14 @@ window.onload=function(){
 
     var check_subscribe = function() {
         var code = GetQueryString("code");
-        if (code == "") {
+        if (!code) {
             console.log("code is none");
             location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx318977fdaad976c1&redirect_uri=http://marserv.cn/register&response_type=code&scope=snsapi_base,snsapi_userinfo#wechat_redirect";
         } else {
             var cb = function(ret) {
               console.log(ret);
               var ret_data = JSON.parse(ret);
-              if (ret_data.data.subscribe == 0) {
+              if (!ret_data.data.subscribe) {
                   alert("您尚未关注本公众号 请关注后再试");
                   location.href = "http://c.wxptgj.com/api/r/zauUb2";
               } else {
