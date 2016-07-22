@@ -66,7 +66,8 @@ class Sign:
             response = requests.get(url)
             ret = json.loads(response.text)
             return {"subscribe": ret.get(u"subscribe"), "openid": ret.get(u"openid")}
-        except:
+        except Exception, e:
+            print "wrong:", e
             return {}
 
     def getUserOpenId(self, code):
@@ -81,7 +82,8 @@ class Sign:
                 return {"openid": ret.get(u"openid")}
             else:
                 return {"openid": try_get_code_from_redis}
-        except:
+        except Exception, e:
+            print "wrong:", e
             return {}
 
 
@@ -92,8 +94,8 @@ sign1 = Sign(appId, appSecret, 'http://marserv.cn/register/')
 #sign3 = Sign(appId, appSecret, 'http://marserv.cn/register/')
 
 #print sign2.getAccessToken()
-print sign1
-print sign1.getUserOpenId("011psWFd1L2E5o0foEHd18dUFd1psWF6")
-
+#print sign1
+#print sign1.getUserOpenId("011psWFd1L2E5o0foEHd18dUFd1psWF6")
+#print sign1.check_subscribe("oAFIAj-7ru1SSh_TSih0Zv88kEOM")
 #sign2.check_subscribe("oAFIAj-7ru1SSh_TSih0Zv88kEOM")
 #sign2.getUserOpenId("011cmsqM1smJe01szGrM1D9oqM1cmsqy")
