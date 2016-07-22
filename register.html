@@ -600,7 +600,7 @@
 
                 byId(share_friend).onclick = function() {
                     alert("share_friend!");
-                    wx.onMenuShareAppMessage({
+                    wx.ready(function(){wx.onMenuShareAppMessage({
                         title: share_title, // 分享标题
                         desc: '', // 分享描述
                         link: share_link, // 分享链接
@@ -614,11 +614,12 @@
                         cancel: function () {
                             // 用户取消分享后执行的回调函数
                         }
-                    });
+                    });});
+
                 };
                 byId(share_moment).onclick = function() {
                     alert("share_moment!");
-                    wx.onMenuShareTimeline({
+                    wx.ready(function(){wx.onMenuShareTimeline({
                         title: share_title, // 分享标题
                         link: share_link, // 分享链接
                         imgUrl: share_image, // 分享图标
@@ -629,11 +630,12 @@
                         cancel: function () {
                             // 用户取消分享后执行的回调函数
                         }
-                    });
+                    });});
+
                 };
                 byId(share_qq).onclick = function() {
                     alert("share_qq!");
-                    wx.onMenuShareQQ({
+                    wx.ready(function(){wx.onMenuShareQQ({
                         title: share_title, // 分享标题
                         desc: '', // 分享描述
                         link: share_link, // 分享链接
@@ -645,11 +647,12 @@
                         cancel: function () {
                            // 用户取消分享后执行的回调函数
                         }
-                    });
+                    });});
+
                 };
                 byId(share_weibo).onclick = function() {
                     alert("share_weibo!");
-                    wx.onMenuShareWeibo({
+                    wx.ready(function(){wx.onMenuShareWeibo({
                         title: share_title, // 分享标题
                         desc: '', // 分享描述
                         link: share_link, // 分享链接
@@ -661,7 +664,8 @@
                         cancel: function () {
                             // 用户取消分享后执行的回调函数
                         }
-                    });
+                    });});
+
                 };
                 clearInterval(i);
             }

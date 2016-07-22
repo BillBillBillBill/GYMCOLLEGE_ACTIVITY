@@ -89,6 +89,6 @@ sign1 = Sign(appId, appSecret, 'http://marserv.cn/register/')
 #print sign2.getAccessToken()
 #print sign1
 #print sign1.getUserOpenId("011psWFd1L2E5o0foEHd18dUFd1psWF6")
-print sign1.check_subscribe("oAFIAj_Wzyzzsnai1wNMXrHo0PLI")
+#print sign1.check_subscribe("oAFIAj_Wzyzzsnai1wNMXrHo0PLI")
 #sign2.check_subscribe("oAFIAj-7ru1SSh_TSih0Zv88kEOM")
 #sign2.getUserOpenId("011cmsqM1smJe01szGrM1D9oqM1cmsqy")
