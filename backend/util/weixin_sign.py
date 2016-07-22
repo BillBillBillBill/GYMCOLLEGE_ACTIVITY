@@ -58,7 +58,18 @@ class Sign:
             response = requests.get(url)
             ret = json.loads(response.text)
             print "subscribe:", ret
-            return {"subscribe": ret.get(u"subscribe"), "openid": ret.get(u"openid")}
+            if ret.get(u'errcode') == 40001:
+                url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s" % (self.appId, self.appSecret)
+                response = requests.get(url)
+                access_token = json.loads(response.text)['access_token']
+                r.set("access_token", access_token, 7000)
+                url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=%s&openid=%s&lang=zh_CN" % (self.getAccessToken(), oid)
+                response = requests.get(url)
+                ret = json.loads(response.text)
+                print "retry:", ret
+                return {"subscribe": ret.get(u"subscribe"), "openid": ret.get(u"openid")}
+            else:
+                return {"subscribe": ret.get(u"subscribe"), "openid": ret.get(u"openid")}
         except Exception, e:
             print "wrong:", e
             return {}

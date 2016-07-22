@@ -133,10 +133,10 @@
                     var data = row_data[key];
                     if (key == "照片") {
             		    table_data[j][key] = "";
-            		    for (var i=0; i < 4; i++) {
+            		    for (var i=0; i < data.length; i++) {
                             table_data[j][key] += '<a class="btn btn-primary" href="' + data[i] + '" title="照片' + (i+1) + '">照片' + (i+1) + '</a>';
                         }} else {
-            		      table_data[j][key] = '<a class="btn btn-primary" href="' + row_data[key][0] + '" title="图片">视频</a>';
+            		      table_data[j][key] = '<a class="btn btn-primary" href="' + row_data[key][0] + '" title="视频">视频</a>';
             	        }
                 }
             }
