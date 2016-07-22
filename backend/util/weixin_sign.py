@@ -5,6 +5,7 @@ import string
 import hashlib
 import json
 import requests
+from server import redisClient
 
 
 class Sign:
@@ -70,10 +71,16 @@ class Sign:
 
     def getUserOpenId(self, code):
         try:
-            url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx318977fdaad976c1&secret=cd70f0c648cc13c82aeba641e9a751fa&code=%s&grant_type=authorization_code" % code
-            response = requests.get(url)
-            ret = json.loads(response.text)
-            return {"openid": ret.get(u"openid")}
+            try_get_code_from_redis = redisClient.get(code)
+            if not try_get_code_from_redis:
+                url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx318977fdaad976c1&secret=cd70f0c648cc13c82aeba641e9a751fa&code=%s&grant_type=authorization_code" % code
+                response = requests.get(url)
+                ret = json.loads(response.text)
+                print ret
+                redisClient.set(code, ret.get(u"openid"))
+                return {"openid": ret.get(u"openid")}
+            else:
+                return try_get_code_from_redis
         except:
             return {}
 
@@ -81,9 +88,12 @@ class Sign:
 appId = 'wx318977fdaad976c1'
 appSecret = 'cd70f0c648cc13c82aeba641e9a751fa'
 sign1 = Sign(appId, appSecret, 'http://marserv.cn/register/')
-sign2 = Sign(appId, appSecret, 'http://marserv.cn/admin/login')
+#sign2 = Sign(appId, appSecret, 'http://marserv.cn/admin/login')
 #sign3 = Sign(appId, appSecret, 'http://marserv.cn/register/')
 
-print sign2.getAccessToken()
-sign2.check_subscribe("oAFIAj-7ru1SSh_TSih0Zv88kEOM")
+#print sign2.getAccessToken()
+print sign1
+print sign1.getUserOpenId("011psWFd1L2E5o0foEHd18dUFd1psWF6")
+
+#sign2.check_subscribe("oAFIAj-7ru1SSh_TSih0Zv88kEOM")
 #sign2.getUserOpenId("011cmsqM1smJe01szGrM1D9oqM1cmsqy")
