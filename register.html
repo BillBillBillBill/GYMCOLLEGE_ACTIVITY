@@ -13,11 +13,11 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="email=no">
     <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge,chrome=1">
-    <meta itemprop="name" content="assets">
+    <meta itemprop="name" content="GYMCOLLEGE健身学院选拔大赛">
     <meta itemprop="description" content="点击进入GYMCOLLEGE健身学院选拔大赛">
-    <meta itemprop="image" content="">
-    <title>assets</title>
-    <link rel="shortcut icon" href="http://oss.szzbmy.com/rp2/apps/widget/common/img/favicon_fbd8366.ico" type="image/x-icon">
+    <meta itemprop="image" content="http://7xi9qa.com1.z0.glb.clouddn.com/2051506419.jpg">
+    <title>GYMCOLLEGE健身学院选拔大赛</title>
+    <link rel="shortcut icon" href="http://7xi9qa.com1.z0.glb.clouddn.com/2051506419.jpg" type="image/jpeg">
     <script>(function(){!function(){var n,i,o,e,s;return s=navigator.userAgent,e=s.indexOf("Windows Phone")>=0,i=s.indexOf("Android")>0&&!e,o=/iP(hone|od)/.test(s)&&!e,n=document.documentElement,e?(n.className+="win-phone",window.isWinPhone=!0):i?(n.className+="android",window.isAndroid=!0):o?(n.className+="ios",window.isIOS=!0):(n.className+="pc",window.isPC=!0)}()}).call(this);</script>
     <style>.comment-show{width:100%;position:absolute}.comment-show.hidden{display:none}.comment-show-item{width:100%;overflow:hidden;height:1.5rem;margin-top:.5rem}.comment-item{position:absolute;left:100%;padding:.3rem 1rem;border-radius:.25rem;color:#fff;word-break:normal;word-wrap:normal;white-space:nowrap;background:rgba(0,0,0,.4);-webkit-transform:perspective(400px) translate3d(0,0,0);transform:perspective(400px) translate3d(0,0,0)}.comment-item .angle{position:absolute;width:0;height:0;border-left:.4rem solid rgba(0,0,0,.4);border-bottom:.25rem solid transparent;border-top:.25rem solid transparent;right:-.4rem;top:0;bottom:0;margin:auto}.comment-item .comment-item-p.active{color:#e54b00}.comment-btns{position:absolute;left:.9rem;bottom:3.2rem}.comment-btn{width:1.5rem;height:1.625rem;background-image:url(http://oss.szzbmy.com/rp2/apps/static/widget/comment/comment-opened_338a755.png);background-size:100% 100%;background-repeat:no-repeat}.comment-btn.closed{background-image:url(http://oss.szzbmy.com/rp2/apps/static/widget/comment/comment-closed_391a2b9.png)}.comment-edit{width:1.5rem;height:1.625rem;background-image:url(http://oss.szzbmy.com/rp2/apps/static/widget/comment/comment-edit_f4af212.png);background-size:100% 100%;margin-bottom:1rem}.comment-edit.hidden{display:none}.comment-btn-num{color:#fff;position:absolute;font-size:.4rem;left:1.1rem;top:-.1rem}.comment-btn-num.hidden{display:none}.comment-input{width:100%;height:100%;display:none;position:absolute;top:0;left:0;background:rgba(0,0,0,.4);z-index:1000}.comment-input .comment-form{position:absolute;bottom:0;height:2rem;width:100%;background:#f4f4f6;padding:.2rem 0 0 3%}.comment-input .comment-input-input{float:left;font-size:.8rem;width:75%;padding:.25rem 0;border:1px solid #999;border-radius:.2rem;text-indent:.5rem}.comment-input .comment-submit{float:left;margin-left:3%;line-height:1.6rem;width:15%;text-align:center;background:#ff9000;color:#fff;border:0;border-radius:.2rem}</style>
 <style>.dialog.fingerprint{width:14rem;margin-left:-7rem}.dialog.fingerprint .pre-content,.dialog.fingerprint .post-content{font-size:.7rem;line-height:1rem;text-align:left}.dialog.fingerprint .post-content{text-align:right}.dialog.fingerprint .mid-content{font-size:1.4rem;line-height:2rem;text-align:center}.dialog.fingerprint .content{padding:1rem}.dialog.fingerprint .btn-confirm{color:#ffb637;background-color:#b60927}</style>
@@ -562,9 +562,10 @@
     var share_qq = "cmp-53";
     var share_weibo = "cmp-54";
 
-    var share_title = "健身学院选拔大赛等你来！";
+    var share_title = "健身学院选拔大赛";
+    var share_desc = "健身学院选拔大赛等你来！";
     var share_link = "http://marserv.cn/register";
-    var share_image = "http://ali1.rabbitpre.com/57f6def0-4f55-11e6-b0ad-3f05cfd76199@0-0-0-0a_584w_70Q_1an.src?crossorigin=1";
+    var share_image = "http://7xi9qa.com1.z0.glb.clouddn.com/2051506419.jpg";
 
     var dynamic_bind6 = function() {
         var i = setInterval(function() {
@@ -601,10 +602,10 @@
                     //alert("share_friend!");
                     wx.ready(function(){wx.onMenuShareAppMessage({
                         title: share_title, // 分享标题
-                        desc: '', // 分享描述
+                        desc: share_desc, // 分享描述
                         link: share_link, // 分享链接
                         imgUrl: share_image, // 分享图标
-                        type: '', // 分享类型,music、video或link，不填默认为link
+                        type: 'link', // 分享类型,music、video或link，不填默认为link
                         dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
                         success: function () {
                             // 用户确认分享后执行的回调函数
@@ -636,7 +637,7 @@
                     //alert("share_qq!");
                     wx.ready(function(){wx.onMenuShareQQ({
                         title: share_title, // 分享标题
-                        desc: '', // 分享描述
+                        desc: share_desc, // 分享描述
                         link: share_link, // 分享链接
                         imgUrl: share_image, // 分享图标
                         success: function () {
@@ -653,7 +654,7 @@
                     //alert("share_weibo!");
                     wx.ready(function(){wx.onMenuShareWeibo({
                         title: share_title, // 分享标题
-                        desc: '', // 分享描述
+                        desc: share_desc, // 分享描述
                         link: share_link, // 分享链接
                         imgUrl: share_image, // 分享图标
                         success: function () {
@@ -678,7 +679,7 @@
             console.log(ret);
             var ret_data = JSON.parse(ret);
             wx.config({
-                debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                 appId: 'wx318977fdaad976c1', // 必填，公众号的唯一标识
                 timestamp: ret_data.data.timestamp, // 必填，生成签名的时间戳
                 nonceStr: ret_data.data.nonceStr, // 必填，生成签名的随机串
@@ -692,6 +693,6 @@
           sendajax('POST', 'http://marserv.cn/api/jssdk_sign', upload_data, cb);
     }
     check_subscribe();
-    setTimeout(sign_jssdk, 6000);
+    setTimeout(sign_jssdk, 5000);
 </script>
 </body></html>
