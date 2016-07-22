@@ -121,6 +121,6 @@ def subscribe_or_not():
     if not openid:
         return jsonSuccess(), 200
     else:
-        s = sign1.check_subscribe(code)
+        s = sign1.check_subscribe(openid)
         print s
         return jsonSuccess(s), 200
