@@ -187,23 +187,26 @@ window.onload=function(){
 
                    // var domain = up.getOption('domain');
                 var res = JSON.parse(info);
-                document.getElementById(button_id).upload_result = res;
+		var bid = button_id.id;
+		console.log("bid" + bid);
+                document.getElementById(bid).upload_result = res;
                 if(/image\/\w+/.test(file.type)) {
                     var reader = new FileReader();
                     reader.readAsDataURL(file.getNative());
                     var father_id = "";
-                    if (button_id == "photo_btn_1") {
+                    if (bid == "photo_btn_1") {
                       father_id = upload_photo1;
-                    } else if (button_id == "photo_btn_2") {
+                    } else if (bid == "photo_btn_2") {
                       father_id = upload_photo2;
-                    } else if (button_id == "photo_btn_3") {
+                    } else if (bid == "photo_btn_3") {
                       father_id = upload_photo3;
-                    } else if (button_id == "photo_btn_4") {
+                    } else if (bid == "photo_btn_4") {
                       father_id = upload_photo4;
-                    } else if (button_id == "photo_btn_5") {
+                    } else if (bid == "photo_btn_5") {
                       father_id = upload_photo5;
                     }
                     reader.onload = function() {
+		      console.log("fff: " + father_id);
                       get_by_father(father_id).style.opacity = 1;
                       get_by_father(father_id).src = this.result;
                     };
@@ -303,7 +306,7 @@ window.onload=function(){
       //   return;
       // }
       data["register_type"] = register_type;
-      data["openid"] = openid;
+      data["openid"] = open_id;
       return data;
     };
 
@@ -335,9 +338,9 @@ window.onload=function(){
     var get_image_upload_result = function() {
       var photo_btn_ids = [];
       if (register_type == "单人")
-        photo_btn_ids = [upload_photo_btn1, upload_photo_btn2, upload_photo_btn3, upload_photo_btn4];
+        photo_btn_ids = ["photo_btn_1", "photo_btn_2", "photo_btn_3", "photo_btn_4", "photo_btn_5"];
       else
-        photo_btn_ids = [upload_photo_btn1, upload_photo_btn2, upload_photo_btn5];
+        photo_btn_ids = ["photo_btn_1", "photo_btn_2", "photo_btn_5"];
       var upload_results = [];
       for(var i=0; i < photo_btn_ids.length; i++) {
         var upload_result = document.getElementById(photo_btn_ids[i]).upload_result;
@@ -349,7 +352,7 @@ window.onload=function(){
     };
 
     var get_video_upload_result = function() {
-      var upload_result = document.getElementById(upload_video_btn).upload_result;
+      var upload_result = document.getElementById("video_btn_1").upload_result;
       if (upload_result) {
         return [upload_result];
       } else {
@@ -499,6 +502,7 @@ window.onload=function(){
                 console.log("ok6");
                 byId(upload_video_btn).style["z-index"] = 10;
                 byId(submit_btn).style["z-index"] = 10;
+                get_by_father(upload_video_btn).id = "video_btn_1";
 
                 byId(submit_btn).onclick = function() {
                     console.log("submit!");
