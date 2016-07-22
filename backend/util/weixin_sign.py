@@ -65,13 +65,13 @@ class Sign:
 
     def getUserOpenId(self, code):
         try:
-            try_get_code_from_redis = redisClient.get(code)
+            try_get_code_from_redis = r.get(code)
             if not try_get_code_from_redis:
                 url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx318977fdaad976c1&secret=cd70f0c648cc13c82aeba641e9a751fa&code=%s&grant_type=authorization_code" % code
                 response = requests.get(url)
                 ret = json.loads(response.text)
                 print ret
-                redisClient.set(code, ret.get(u"openid"))
+                r.set(code, ret.get(u"openid"))
                 return {"openid": ret.get(u"openid")}
             else:
                 return {"openid": try_get_code_from_redis}
