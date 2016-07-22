@@ -10,6 +10,7 @@ from api import api, ERROR_USER, GlobalError
 from model.register_information import User, Photo, Video
 from server import db
 from util.jsonResponse import jsonSuccess, jsonError
+from util.weixin_sign import sign1
 
 
 class UserError():
@@ -50,10 +51,11 @@ class UserError():
         'msg': 'Checkcode Error'
     }
 
-def register(name, sex, job, phone, email, location, declaration, photos, videos):
+
+def register(name, sex, job, phone, email, location, photos, videos, register_type, openid):
     try:
         # 存入数据库
-        newUser = User(name, sex, job, phone, email, location, declaration)
+        newUser = User(name, sex, job, phone, email, location, register_type, openid)
         db.session.add(newUser)
         db.session.commit()
         for photo in photos:
@@ -79,16 +81,17 @@ def user_register():
     try:
         if not request.json:
             return jsonError(GlobalError.INVALID_ARGUMENTS), 400
+        openid = request.json.get('openid', '')
         name = request.json.get('name', '')
+        register_type = request.json.get('register_type', '')
         sex = request.json.get('sex', '')
         job = request.json.get('job', '')
         phone = request.json.get('phone', '')
         email = request.json.get('email', '')
         location = request.json.get('location', '')
-        declaration = request.json.get('declaration', '')
         videos = request.json.get('videos', [])
         photos = request.json.get('photos', [])
-        ret = register(name, sex, job, phone, email, location, declaration, photos, videos)
+        ret = register(name, sex, job, phone, email, location, photos, videos, register_type, openid)
         if ret:
             return jsonSuccess(ret), 201
         else:
@@ -107,3 +110,15 @@ def user_register_options():
     a.headers["Access-Control-Allow-Methods"] = "POST, OPTIONS"
     a.headers["Access-Control-Max-Age"] = 1728000
     return a
+
+
+@api.route('/check_subscribe', methods=["POST"])
+def subscribe_or_not():
+    code = request.json.get('code', '')
+    openid = (sign1.getUserOpenId(code)).get("openid")
+    print code
+    print openid
+    if not openid:
+        return jsonSuccess(), 200
+    else:
+        return jsonSuccess(sign1.check_subscribe(code)), 200

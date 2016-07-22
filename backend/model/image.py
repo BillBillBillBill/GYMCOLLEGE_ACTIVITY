@@ -3,7 +3,6 @@ from server import db
 from datetime import datetime
 
 
-
 class Image(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.Text, nullable=False)
