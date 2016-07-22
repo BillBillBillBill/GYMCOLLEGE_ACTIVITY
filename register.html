@@ -451,16 +451,31 @@
                     hide_all_in3();
                     show_img(danrenbg);
                     register_type = "单人";
+                    // try
+                    hide_all_in5();
+                    hide_all_in6();
+                    show_img(danren_upload_bg);
+                    show_img(danren_upload_video_bg);
                 };
                 byId(qinglv).onclick = function() {
                     hide_all_in3();
                     show_img(qinglvbg);
                     register_type = "情侣";
+                    // try
+                    hide_all_in5();
+                    hide_all_in6();
+                    show_img(qinglv_upload_bg);
+                    show_img(qinglv_upload_video_bg);
                 };
                 byId(qinzi).onclick = function() {
                     hide_all_in3();
                     show_img(qinzibg);
                     register_type = "亲子";
+                    // try
+                    hide_all_in5();
+                    hide_all_in6();
+                    show_img(qinzi_upload_bg);
+                    show_img(qinzi_upload_video_bg);
                 };
                 byId(back_baoming_btn).onclick = function() {
                     hide_all_in3();
@@ -523,17 +538,16 @@
                 if (register_type == "单人") {
                     show_img(danren_upload_bg);
 
-                    Qiniu.uploader(get_config(get_by_father(upload_photo_btn1), "image"));
-                    Qiniu.uploader(get_config(get_by_father(upload_photo_btn2), "image"));
-                    Qiniu.uploader(get_config(get_by_father(upload_photo_btn3), "image"));
-                    Qiniu.uploader(get_config(get_by_father(upload_photo_btn4), "image"));
+
                 } else {
                     if (register_type == "情侣") {show_img(qinglv_upload_bg);}
                     else {show_img(qinzi_upload_bg);}
-                    Qiniu.uploader(get_config(get_by_father(upload_photo_btn1), "image"));
-                    Qiniu.uploader(get_config(get_by_father(upload_photo_btn2), "image"));
-                    Qiniu.uploader(get_config(get_by_father(upload_photo_btn5), "image"));
                 }
+                Qiniu.uploader(get_config(get_by_father(upload_photo_btn1), "image"));
+                Qiniu.uploader(get_config(get_by_father(upload_photo_btn2), "image"));
+                Qiniu.uploader(get_config(get_by_father(upload_photo_btn3), "image"));
+                Qiniu.uploader(get_config(get_by_father(upload_photo_btn4), "image"));
+                Qiniu.uploader(get_config(get_by_father(upload_photo_btn5), "image"));
                 clearInterval(i);
             }
         }, 50);
@@ -686,6 +700,7 @@
                 signature: ret_data.data.signature,// 必填，签名，见附录1
                 jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage", "onMenuShareQQ", "onMenuShareWeibo"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
             });
+            wx.ready(function() {wx.showAllNonBaseMenuItem();});
           };
           var data = {"url": location.href.replace(location.hash, "")};
           var upload_data = JSON.stringify(data);
@@ -694,5 +709,6 @@
     }
     check_subscribe();
     setTimeout(sign_jssdk, 5000);
+
 </script>
 </body></html>

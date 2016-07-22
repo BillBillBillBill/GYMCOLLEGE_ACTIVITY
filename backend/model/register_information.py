@@ -27,12 +27,7 @@ class User(db.Model):
         self.email = email
         self.location = location
         self.openid = openid
-        if register_type == "1":
-            self.register_type = u"单人"
-        elif register_type == "2":
-            self.register_type = u"双人"
-        else:
-            self.register_type = u"亲子"
+        self.register_type = register_type
 
     def to_dict(self):
         ret = OrderedDict()
