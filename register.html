@@ -591,7 +591,7 @@
     var share_weibo = "cmp-55";
 
     var share_title = "健身学院选拔大赛";
-    var share_desc = "健身学院选拔大赛等你来！";
+    var share_desc = "2016 GYMCOLLEGE X 力美健";
     var share_link = "http://marserv.cn/register";
     var share_image = "http://7xi9qa.com1.z0.glb.clouddn.com/2051506419.jpg";
 
@@ -678,33 +678,31 @@
     sign_jssdk();
 
     wx.ready(function(){
-        // wx.onMenuShareQQ({
-        //     title: share_title, // 分享标题
-        //     desc: share_desc, // 分享描述
-        //     link: share_link, // 分享链接
-        //     imgUrl: share_image, // 分享图标
-        //     success: function () {
-        //        // 用户确认分享后执行的回调函数
-        //        alert("分享成功！");
-        //     },
-        //     cancel: function () {
-        //        // 用户取消分享后执行的回调函数
-        //     }
-        // });
+        wx.onMenuShareQQ({
+            title: share_title, // 分享标题
+            desc: share_desc, // 分享描述
+            link: share_link, // 分享链接
+            imgUrl: share_image, // 分享图标
+            success: function () {
+               // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+               // 用户取消分享后执行的回调函数
+            }
+        });
 
-        // wx.onMenuShareWeibo({
-        //     title: share_title, // 分享标题
-        //     desc: share_desc, // 分享描述
-        //     link: share_link, // 分享链接
-        //     imgUrl: share_image, // 分享图标
-        //     success: function () {
-        //        // 用户确认分享后执行的回调函数
-        //        alert("分享成功！");
-        //     },
-        //     cancel: function () {
-        //         // 用户取消分享后执行的回调函数
-        //     }
-        // });
+        wx.onMenuShareWeibo({
+            title: share_title, // 分享标题
+            desc: share_desc, // 分享描述
+            link: share_link, // 分享链接
+            imgUrl: share_image, // 分享图标
+            success: function () {
+               // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
 
         wx.onMenuShareTimeline({
             title: share_title, // 分享标题
@@ -720,21 +718,20 @@
             }
         });
 
-        // wx.onMenuShareAppMessage({
-        //     title: share_title, // 分享标题
-        //     desc: share_desc, // 分享描述
-        //     link: share_link, // 分享链接
-        //     imgUrl: share_image, // 分享图标
-        //     type: 'link', // 分享类型,music、video或link，不填默认为link
-        //     dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-        //     success: function () {
-        //         // 用户确认分享后执行的回调函数
-        //         alert("分享成功！");
-        //     },
-        //     cancel: function () {
-        //         // 用户取消分享后执行的回调函数
-        //     }
-        // });
+        wx.onMenuShareAppMessage({
+            title: share_title, // 分享标题
+            desc: share_desc, // 分享描述
+            link: share_link, // 分享链接
+            imgUrl: share_image, // 分享图标
+            type: 'link', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
 
     });
 
