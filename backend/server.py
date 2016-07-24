@@ -6,7 +6,7 @@ from gevent.wsgi import WSGIServer
 from uuid import uuid4
 from flask import redirect, url_for
 from flask import Flask
-from flask.ext.sqlalchemy import SQLAlchemy
+from util.hack import nullpool_SQLAlchemy
 import redis
 
 
@@ -41,7 +41,7 @@ class App(object):
 
 
 app = App()
-db = SQLAlchemy(app.app)
+db = nullpool_SQLAlchemy(app.app)
 redisClient = redis.Redis(host='127.0.0.1', port=REDIS_PORT, db=REDIS_DB)
 
 
